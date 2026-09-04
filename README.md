@@ -1,0 +1,1 @@
+# pixelbattle-i18n
