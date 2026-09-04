@@ -1,6 +1,7 @@
 {
     "$meta": {
-        "dateFormat": "DD.MM.YYYY"
+        "dateFormat": "DD.MM.YYYY",
+        "aliases": ["be", "uk"]
     },
     "about": {
         "section_title": "О проекте",
