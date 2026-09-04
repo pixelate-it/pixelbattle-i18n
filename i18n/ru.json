@@ -1,0 +1,12 @@
+{
+    "$meta": {
+        "dateFormat": "DD.MM.YYYY"
+    },
+    "about": {
+        "section_title": "О проекте",
+        "open_source": "Открытый код",
+        "technologies_used": "Используемые технологии",
+        "our_projects": "Наши проекты",
+        "libraries_used": "Используемые библиотеки"
+    }
+}

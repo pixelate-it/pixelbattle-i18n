@@ -1,0 +1,12 @@
+{
+    "$meta": {
+        "dateFormat": "MM/DD/YYYY"
+    },
+    "about": {
+        "section_title": "About",
+        "open_source": "Open source",
+        "technologies_used": "Technologies used",
+        "our_projects": "Our projects",
+        "libraries_used": "Libraries used"
+    }
+}

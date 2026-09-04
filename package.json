@@ -1,0 +1,8 @@
+{
+    "name": "pixelbattle-i18n",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "check": "bun run scripts/check-locales.ts"
+    }
+}
