@@ -182,7 +182,7 @@
         "the_game_is_open_in_another_tab": "Игра открыта в другой вкладке",
         "one_player_one_connection_reload_the_page_to_play": "Один игрок — одно подключение. Обновите страницу, чтобы играть здесь",
         "reload_the_page": "Обновить страницу",
-        "snapshot_copied_to_clipboard": "Снимок сохранено в буфер обмена",
+        "snapshot_copied_to_clipboard": "Снимок скопирован в буфер обмена",
         "your_browser_doesnt_support_clipboard_access": "Ваш браузер не поддерживает работу c буфером обмена",
         "the_multiplier_must_be_greater_than_zero": "Указан множитель меньше нуля или равный нулю",
         "multiplier_reduced": "Множитель уменьшен",
