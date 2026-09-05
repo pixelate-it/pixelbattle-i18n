@@ -1,7 +1,7 @@
 {
     "$meta": {
         "language_name": "Русский",
-        "dateFormat": "DD.MM.YYYY",
+        "bcp47": "ru-RU",
         "aliases": ["be", "uk"]
     },
     "about": {

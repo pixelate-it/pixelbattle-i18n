@@ -12,11 +12,13 @@ i18n/
 
 Each file is a nested object. Top-level keys are domains (feature/component), and each domain holds flat strings. A string's key is its dot path, e.g. `about.section_title`.
 
-The top-level `$meta` block holds locale metadata (date format, etc.), not translations - the completeness check ignores it entirely when comparing locales.
+The top-level `$meta` block holds locale metadata (BCP-47 tag, alias tags, the endonym), not translations - the completeness check ignores it entirely when comparing locales.
 
 `$meta.aliases` in `ru.json` - BCP-47 language tags whose speakers should default to `ru` instead of the `en` fallback (read by the frontend's `detectLocale()`, via a static/eager import, not the lazy per-locale load). Currently `be`, `uk`.
 
 `$meta.language_name` in each file - the endonym, the language's own name in itself ("Русский", "English"), used by the language switcher in settings. Read like any other key via `t("$meta.language_name")` - `resolveKey` doesn't special-case `$meta`, only `flattenKeys`/the completeness check exclude it from being treated as a translation.
+
+`$meta.bcp47` in each file - the tag passed to `Intl` (`Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`) for that locale's date/number formatting, e.g. `ru-RU`, `en-US`. Read once the locale's catalog has loaded (the frontend's `dateLocale()` falls back to the bare locale code before that, or if a locale omits the field - itself a valid, if less region-specific, BCP-47 tag).
 
 ## Translation progress
 

@@ -1,7 +1,7 @@
 {
     "$meta": {
         "language_name": "English",
-        "dateFormat": "MM/DD/YYYY"
+        "bcp47": "en-US"
     },
     "about": {
         "section_title": "About",
