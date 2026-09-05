@@ -564,6 +564,22 @@
         "pixels_put_back": "Pixels put back: ",
         "revert_this_mode": "Revert this mode",
         "mode_reverted": "Mode reverted",
-        "reverting_stops_the_mode_and_puts_back_what_it_pai": "Reverting stops the mode and puts back what it painted over, as far as the recording reaches. Anything it could not reach stays on the canvas, belonging to nobody."
+        "reverting_stops_the_mode_and_puts_back_what_it_pai": "Reverting stops the mode and puts back what it painted over, as far as the recording reaches. Anything it could not reach stays on the canvas, belonging to nobody.",
+        "palette": {
+            "name": "Limited palette",
+            "description": "Only a fixed set of colors may be placed this season. The canvas refuses anything else."
+        },
+        "infection": {
+            "name": "Infection",
+            "description": "An infection creeps across the canvas, taking neighbouring pixels every few seconds. The bigger the blot, the slower it grows, and it stands still while nobody is online. Painting over an infected pixel cures it. Clear the infection completely and a fresh one appears somewhere else within a couple of minutes - so a small blot is worth more to you than none at all."
+        },
+        "decay": {
+            "name": "Entropy",
+            "description": "Pixels nobody has touched in a while slowly fade towards white. Art that is looked after lasts forever; art that is abandoned quietly disappears. Touching a pixel again is enough to start its count over."
+        },
+        "inflation": {
+            "name": "Inflation",
+            "description": "The canvas only grows while one person holds a quarter of its pixels. The moment they do it expands two pixels on every side - and a quarter of the new area costs more. Fall short and a couple of minutes later it shrinks back, taking everything past the edge with it, for good. Only one person can hold the quarter, so agree on who that is and do not paint over them. And keep to the middle: the edge is not safe."
+        }
     }
 }
