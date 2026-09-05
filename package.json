@@ -1,0 +1,14 @@
+{
+    "name": "pixelbattle-i18n",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "node scripts/check-locales.ts",
+        "typecheck": "tsc --noEmit",
+        "readme": "node scripts/update-readme.ts"
+    },
+    "devDependencies": {
+        "@types/node": "26.4.0",
+        "typescript": "^7.0.2"
+    }
+}

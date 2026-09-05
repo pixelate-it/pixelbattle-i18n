@@ -1,0 +1,19 @@
+{
+  "tabWidth": 4,
+  "semi": true,
+  "singleQuote": false,
+  "quoteProps": "as-needed",
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": ["*.yaml", "*.yml", ".prettierrc"],
+      "options": {
+        "tabWidth": 2,
+        "useTabs": false
+      }
+    }
+  ]
+}
