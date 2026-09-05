@@ -10,9 +10,7 @@ function flattenKeys(dict: Dictionary, prefix = ""): string[] {
     return Object.entries(dict).flatMap(([key, value]) => {
         const path = prefix ? `${prefix}.${key}` : key;
 
-        return typeof value === "string"
-            ? [path]
-            : flattenKeys(value, path);
+        return typeof value === "string" ? [path] : flattenKeys(value, path);
     });
 }
 
@@ -23,11 +21,15 @@ function loadLocale(file: string): Dictionary {
     return domains;
 }
 
-const localeFiles = readdirSync(I18N_DIR).filter((file) => file.endsWith(".json"));
+const localeFiles = readdirSync(I18N_DIR).filter((file) =>
+    file.endsWith(".json"),
+);
 const canonicalFile = `${CANONICAL_LOCALE}.json`;
 
 if (!localeFiles.includes(canonicalFile)) {
-    console.error(`Canonical locale file ${canonicalFile} not found in ${I18N_DIR}`);
+    console.error(
+        `Canonical locale file ${canonicalFile} not found in ${I18N_DIR}`,
+    );
     process.exit(1);
 }
 
@@ -48,7 +50,9 @@ for (const file of localeFiles) {
     hasMismatch = true;
     console.error(`\n${locale}:`);
     if (missing.length) {
-        console.error(`  missing (present in ${CANONICAL_LOCALE}, absent here):`);
+        console.error(
+            `  missing (present in ${CANONICAL_LOCALE}, absent here):`,
+        );
         for (const key of missing) console.error(`    - ${key}`);
     }
     if (extra.length) {
@@ -62,4 +66,6 @@ if (hasMismatch) {
     process.exit(1);
 }
 
-console.log(`Locale check passed (${localeFiles.length} locales, ${canonicalKeys.size} keys).`);
+console.log(
+    `Locale check passed (${localeFiles.length} locales, ${canonicalKeys.size} keys).`,
+);
