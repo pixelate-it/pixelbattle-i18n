@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "test": "node scripts/check-locales.ts",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "readme": "node scripts/update-readme.ts"
     },
     "devDependencies": {
         "@types/node": "26.4.0",

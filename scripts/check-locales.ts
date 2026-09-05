@@ -1,42 +1,22 @@
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import {
+    CANONICAL_LOCALE,
+    flattenKeys,
+    loadLocale,
+    localeFiles,
+} from "./lib.ts";
 
-const I18N_DIR = join(import.meta.dirname, "..", "i18n");
-const CANONICAL_LOCALE = "ru";
-
-type Dictionary = { [key: string]: string | Dictionary };
-
-function flattenKeys(dict: Dictionary, prefix = ""): string[] {
-    return Object.entries(dict).flatMap(([key, value]) => {
-        const path = prefix ? `${prefix}.${key}` : key;
-
-        return typeof value === "string" ? [path] : flattenKeys(value, path);
-    });
-}
-
-function loadLocale(file: string): Dictionary {
-    const parsed = JSON.parse(readFileSync(join(I18N_DIR, file), "utf-8"));
-    const { $meta, ...domains } = parsed;
-
-    return domains;
-}
-
-const localeFiles = readdirSync(I18N_DIR).filter((file) =>
-    file.endsWith(".json"),
-);
+const files = localeFiles();
 const canonicalFile = `${CANONICAL_LOCALE}.json`;
 
-if (!localeFiles.includes(canonicalFile)) {
-    console.error(
-        `Canonical locale file ${canonicalFile} not found in ${I18N_DIR}`,
-    );
+if (!files.includes(canonicalFile)) {
+    console.error(`Canonical locale file ${canonicalFile} not found`);
     process.exit(1);
 }
 
 const canonicalKeys = new Set(flattenKeys(loadLocale(canonicalFile)));
 let hasMismatch = false;
 
-for (const file of localeFiles) {
+for (const file of files) {
     if (file === canonicalFile) continue;
 
     const locale = file.replace(/\.json$/, "");
@@ -67,5 +47,5 @@ if (hasMismatch) {
 }
 
 console.log(
-    `Locale check passed (${localeFiles.length} locales, ${canonicalKeys.size} keys).`,
+    `Locale check passed (${files.length} locales, ${canonicalKeys.size} keys).`,
 );
