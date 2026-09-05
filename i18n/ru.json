@@ -44,8 +44,7 @@
         "cooldown_position": "Позиция кулдауна",
         "bottom": "Снизу",
         "at_cursor": "У курсора",
-        "language": "Язык",
-        "zoom_speed": "Скорость зума"
+        "language": "Язык"
     },
     "common": {
         "ms": "мс",
@@ -85,7 +84,8 @@
         "show_hide_stencils": "Показать/скрыть трафареты",
         "camera_to_the_current_stencil": "Камеру на текущий трафарет",
         "zoom_in": "Приблизить холст",
-        "zoom_out": "Отдалить холст"
+        "zoom_out": "Отдалить холст",
+        "zoom_speed": "Скорость зума с клавиш"
     },
     "links": {
         "pixelate_it_youtube_channel": "YouTube канал Pixelate It!",

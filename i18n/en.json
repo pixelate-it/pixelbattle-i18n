@@ -43,8 +43,7 @@
         "cooldown_position": "Cooldown position",
         "bottom": "Bottom",
         "at_cursor": "At cursor",
-        "language": "Language",
-        "zoom_speed": "Zoom speed"
+        "language": "Language"
     },
     "common": {
         "ms": "ms",
@@ -84,7 +83,8 @@
         "show_hide_stencils": "Show/hide stencils",
         "camera_to_the_current_stencil": "Camera to the current stencil",
         "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out"
+        "zoom_out": "Zoom out",
+        "zoom_speed": "Keyboard zoom speed"
     },
     "links": {
         "pixelate_it_youtube_channel": "Pixelate It! YouTube channel",
