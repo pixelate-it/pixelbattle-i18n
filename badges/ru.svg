@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="320" height="24" role="img" aria-label="Russian: 100%">
-    <rect width="320" height="24" rx="4" fill="#161b22"/>
-    <text x="10" y="16" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" fill="#c9d1d9">Russian</text>
-    <rect x="130" y="6" width="140" height="12" rx="6" fill="#30363d"/>
-    <rect x="130" y="6" width="140" height="12" rx="6" fill="#3fb950"/>
-    <text x="310" y="16" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" fill="#c9d1d9" text-anchor="end">100%</text>
-</svg>
