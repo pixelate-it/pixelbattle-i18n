@@ -4,10 +4,20 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: "26"
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun run check
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+      - run: yarn typecheck
+      - run: yarn test

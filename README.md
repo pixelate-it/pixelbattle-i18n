@@ -1,33 +1,35 @@
 # pixelbattle-i18n
 
-Локализации PixelBattle, подключается к фронту как git-сабмодуль в `i18n/`.
+PixelBattle locales, consumed by the frontend as a git submodule at `i18n/`.
 
-## Структура
+## Structure
 
 ```
 i18n/
-  ru.json   # канон, источник истины — всё, что есть в ru, обязано быть в остальных локалях
+  ru.json   # canonical - source of truth. Every key here must exist in every other locale.
   en.json
 ```
 
-Каждый файл — вложенный объект. Ключи первого уровня — домены (фича/компонент), внутри — плоские строки. Ключ строки — dot-путь, например `about.section_title`.
+Each file is a nested object. Top-level keys are domains (feature/component), and each domain holds flat strings. A string's key is its dot path, e.g. `about.section_title`.
 
-Блок `$meta` на верхнем уровне — метаданные локали (формат даты и т.п.), не перевод: скрипт проверки полноты его не сверяет между локалями.
+The top-level `$meta` block holds locale metadata (date format, etc.), not translations - the completeness check ignores it entirely when comparing locales.
 
-`$meta.aliases` в `ru.json` — BCP-47-теги языков, чьи носители по умолчанию должны получать `ru` вместо fallback-`en` (читается `detectLocale()` во фронте, импорт статический/eager, не через ленивую загрузку). Сейчас это `be`, `uk`.
+`$meta.aliases` in `ru.json` - BCP-47 language tags whose speakers should default to `ru` instead of the `en` fallback (read by the frontend's `detectLocale()`, via a static/eager import, not the lazy per-locale load). Currently `be`, `uk`.
 
-`$meta.language_name` в каждом файле — эндоним, название языка на нём самом ("Русский", "English"), для переключателя языка в настройках. Читается как обычный ключ через `t("$meta.language_name")` — `resolveKey` не выделяет `$meta` специально, это только `flattenKeys`/проверку полноты `$meta` не считает переводом.
+`$meta.language_name` in each file - the endonym, the language's own name in itself ("Русский", "English"), used by the language switcher in settings. Read like any other key via `t("$meta.language_name")` - `resolveKey` doesn't special-case `$meta`, only `flattenKeys`/the completeness check exclude it from being treated as a translation.
 
-## Добавление перевода
+## Adding a translation
 
-1. Добавить ключ в `i18n/ru.json` внутри нужного домена (или создать новый домен — новый ключ первого уровня).
-2. Добавить тот же dot-путь в остальные `i18n/*.json`.
-3. `bun run check` — убедиться, что во всех локалях одинаковый набор путей.
+1. Add the key to `i18n/ru.json` inside the right domain (or start a new domain - a new top-level key).
+2. Add the same dot path to the other `i18n/*.json` files.
+3. `yarn test` - confirms every locale has the same set of paths.
 
-## Проверка полноты
+## Completeness check
 
 ```bash
-bun run check
+yarn install
+yarn typecheck
+yarn test
 ```
 
-Сверяет dot-пути всех строк каждой локали с `ru.json` (канон). Падает, если где-то не хватает перевода (missing) или остался ключ, которого больше нет в `ru.json` (extra/stale). Гоняется в CI на каждый push/PR (`.github/workflows/check.yml`).
+`yarn test` compares the dot paths of every locale against `ru.json` (canonical). It fails if a locale is missing a translation, or still carries a key that no longer exists in `ru.json` (stale/extra). Both run in CI on every push/PR (`.github/workflows/check.yml`), targeting the same Node version as the frontend (`.github/workflows/check.yml`'s `NODE_VERSION`, kept in sync with pixelbattle-frontend's `.nvmrc`).

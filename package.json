@@ -3,6 +3,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "check": "bun run scripts/check-locales.ts"
+        "test": "node scripts/check-locales.ts",
+        "typecheck": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@types/node": "26.4.0",
+        "typescript": "^7.0.2"
     }
 }

@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const I18N_DIR = join(import.meta.dir, "..", "i18n");
+const I18N_DIR = join(import.meta.dirname, "..", "i18n");
 const CANONICAL_LOCALE = "ru";
 
 type Dictionary = { [key: string]: string | Dictionary };
