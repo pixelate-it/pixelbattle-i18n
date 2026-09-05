@@ -21,7 +21,23 @@ export function loadLocale(file: string): Dictionary {
     return domains;
 }
 
-export function loadMeta(file: string): { language_name?: string } {
+export type Meta = {
+    language_name?: string;
+    bcp47?: string;
+    aliases?: string[];
+    // GitHub handles, pinged (via @mention) when their locale falls behind
+    // ru.json - see scripts/notify-maintainers.ts. Decentralized on purpose,
+    // same as the rest of $meta: a locale's own file is the one place that
+    // says who speaks for it, no separate registry to keep in sync.
+    //
+    // Required, even empty: a locale with nobody listed still needs `[]` on
+    // record rather than a missing key, so an unmaintained locale is a fact
+    // check-locales.ts can see instead of something loadMeta silently papers
+    // over with a default.
+    maintainers: string[];
+};
+
+export function loadMeta(file: string): Meta {
     const parsed = JSON.parse(readFileSync(join(I18N_DIR, file), "utf-8"));
 
     return parsed.$meta ?? {};
@@ -29,4 +45,14 @@ export function loadMeta(file: string): { language_name?: string } {
 
 export function localeFiles(): string[] {
     return readdirSync(I18N_DIR).filter((file) => file.endsWith(".json"));
+}
+
+// Dot paths present in ru.json but absent from `file` - what that locale's
+// maintainers still owe it. Doesn't flag extra/stale keys (check-locales.ts's
+// job): notify-maintainers.ts only ever files an issue for work left to do.
+export function missingKeys(file: string): string[] {
+    const canonicalKeys = flattenKeys(loadLocale(`${CANONICAL_LOCALE}.json`));
+    const keys = new Set(flattenKeys(loadLocale(file)));
+
+    return canonicalKeys.filter((key) => !keys.has(key));
 }

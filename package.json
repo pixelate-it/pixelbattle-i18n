@@ -5,7 +5,8 @@
     "scripts": {
         "test": "node scripts/check-locales.ts",
         "typecheck": "tsc --noEmit",
-        "readme": "node scripts/update-readme.ts"
+        "readme": "node scripts/update-readme.ts",
+        "notify": "node scripts/notify-maintainers.ts"
     },
     "devDependencies": {
         "@types/node": "26.4.0",

@@ -12,13 +12,21 @@ i18n/
 
 Each file is a nested object. Top-level keys are domains (feature/component), and each domain holds flat strings. A string's key is its dot path, e.g. `about.section_title`.
 
+A locale's filename (`ru`, `en`, ...) is its ISO 639-1 code - that's also what `$meta.aliases` entries are, since they name locales the same way.
+
 The top-level `$meta` block holds locale metadata (BCP-47 tag, alias tags, the endonym), not translations - the completeness check ignores it entirely when comparing locales.
 
-`$meta.aliases` in `ru.json` - BCP-47 language tags whose speakers should default to `ru` instead of the `en` fallback (read by the frontend's `detectLocale()`, via a static/eager import, not the lazy per-locale load). Currently `be`, `uk`.
+`$meta.aliases` in `ru.json` - ISO 639-1 codes whose speakers should default to `ru` instead of the `en` fallback (read by the frontend's `detectLocale()`, via a static/eager import, not the lazy per-locale load). Currently `be`, `uk`.
 
 `$meta.language_name` in each file - the endonym, the language's own name in itself ("Русский", "English"), used by the language switcher in settings. Read like any other key via `t("$meta.language_name")` - `resolveKey` doesn't special-case `$meta`, only `flattenKeys`/the completeness check exclude it from being treated as a translation.
 
 `$meta.bcp47` in each file - the tag passed to `Intl` (`Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`) for that locale's date/number formatting, e.g. `ru-RU`, `en-US`. Read once the locale's catalog has loaded (the frontend's `dateLocale()` falls back to the bare locale code before that, or if a locale omits the field - itself a valid, if less region-specific, BCP-47 tag).
+
+`$meta.maintainers` in each file - GitHub handles of the people who keep that locale in sync with `ru.json`, e.g. `["mirdukkkkk"]`. Required on every locale (use `[]` if nobody's claimed it yet) - `yarn test` fails a locale that omits the key entirely, same as a missing translation. There's no separate maintainers registry: each locale's own file is the one place that says who speaks for it.
+
+## Notifications
+
+`.github/workflows/notify.yml` runs `yarn notify` (`scripts/notify-maintainers.ts`) on every push to `main` that touches `i18n/*.json`. For each non-canonical locale still missing keys from `ru.json`, it opens (or updates) one tracking issue labeled `translation` + `lang:<code>`, checklisting the missing dot-paths, `@`-mentioning `$meta.maintainers` in the body, and assigning them to the issue (GitHub silently drops an assignee who isn't a repo collaborator - the `@`-mention still lands either way). The issue is reused across pushes (edited, not duplicated) and auto-closed once the locale catches up.
 
 ## Translation progress
 

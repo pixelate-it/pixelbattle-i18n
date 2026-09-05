@@ -1,7 +1,8 @@
 {
     "$meta": {
         "language_name": "English",
-        "bcp47": "en-US"
+        "bcp47": "en-US",
+        "maintainers": ["mirdukkkkk"]
     },
     "about": {
         "section_title": "About",

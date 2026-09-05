@@ -2,6 +2,7 @@ import {
     CANONICAL_LOCALE,
     flattenKeys,
     loadLocale,
+    loadMeta,
     localeFiles,
 } from "./lib.ts";
 
@@ -17,9 +18,20 @@ const canonicalKeys = new Set(flattenKeys(loadLocale(canonicalFile)));
 let hasMismatch = false;
 
 for (const file of files) {
+    const locale = file.replace(/\.json$/, "");
+
+    // Required so notify-maintainers.ts can trust $meta.maintainers is an
+    // array without a fallback papering over a locale nobody claimed - a
+    // locale with no maintainer still records that as `[]`, not omission.
+    if (!Array.isArray(loadMeta(file).maintainers)) {
+        hasMismatch = true;
+        console.error(
+            `${locale}: $meta.maintainers is required (use [] if unmaintained)`,
+        );
+    }
+
     if (file === canonicalFile) continue;
 
-    const locale = file.replace(/\.json$/, "");
     const keys = new Set(flattenKeys(loadLocale(file)));
 
     const missing = [...canonicalKeys].filter((key) => !keys.has(key));

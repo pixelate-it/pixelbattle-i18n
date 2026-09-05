@@ -1,0 +1,27 @@
+name: Notify maintainers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "i18n/*.json"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: "26"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+      - run: yarn notify
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

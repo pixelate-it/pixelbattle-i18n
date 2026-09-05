@@ -2,7 +2,8 @@
     "$meta": {
         "language_name": "Русский",
         "bcp47": "ru-RU",
-        "aliases": ["be", "uk"]
+        "aliases": ["be", "uk"],
+        "maintainers": ["mirdukkkkk"]
     },
     "about": {
         "section_title": "О проекте",
