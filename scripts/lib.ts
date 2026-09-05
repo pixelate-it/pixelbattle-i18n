@@ -2,7 +2,14 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 export const I18N_DIR = join(import.meta.dirname, "..", "i18n");
-export const CANONICAL_LOCALE = "ru";
+// The reference structure for translation tooling (check-locales.ts,
+// update-readme.ts, notify-maintainers.ts) - not the frontend's SOURCE_LOCALE
+// (src/utils/i18n.ts), which stays "ru": that's the language the app is
+// actually authored and shipped in by default. The two are decoupled on
+// purpose - English is the more broadly readable reference for an open
+// translation project, but nothing about which language the product runs in
+// by default follows from that.
+export const CANONICAL_LOCALE = "en";
 
 export type Dictionary = { [key: string]: string | Dictionary };
 
@@ -26,7 +33,7 @@ export type Meta = {
     bcp47?: string;
     aliases?: string[];
     // GitHub handles, pinged (via @mention) when their locale falls behind
-    // ru.json - see scripts/notify-maintainers.ts. Decentralized on purpose,
+    // CANONICAL_LOCALE - see scripts/notify-maintainers.ts. Decentralized on purpose,
     // same as the rest of $meta: a locale's own file is the one place that
     // says who speaks for it, no separate registry to keep in sync.
     //
@@ -47,9 +54,10 @@ export function localeFiles(): string[] {
     return readdirSync(I18N_DIR).filter((file) => file.endsWith(".json"));
 }
 
-// Dot paths present in ru.json but absent from `file` - what that locale's
-// maintainers still owe it. Doesn't flag extra/stale keys (check-locales.ts's
-// job): notify-maintainers.ts only ever files an issue for work left to do.
+// Dot paths present in CANONICAL_LOCALE's file but absent from `file` - what
+// that locale's maintainers still owe it. Doesn't flag extra/stale keys
+// (check-locales.ts's job): notify-maintainers.ts only ever files an issue
+// for work left to do.
 export function missingKeys(file: string): string[] {
     const canonicalKeys = flattenKeys(loadLocale(`${CANONICAL_LOCALE}.json`));
     const keys = new Set(flattenKeys(loadLocale(file)));

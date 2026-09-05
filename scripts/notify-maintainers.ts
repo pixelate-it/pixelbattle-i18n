@@ -4,7 +4,7 @@ import { CANONICAL_LOCALE, loadMeta, localeFiles, missingKeys } from "./lib.ts";
 const TRANSLATION_LABEL = {
     name: "translation",
     color: "0e8a16",
-    description: "Auto-filed: a locale has fallen behind ru.json",
+    description: `Auto-filed: a locale has fallen behind ${CANONICAL_LOCALE}.json`,
 };
 
 const repo = process.env.GITHUB_REPOSITORY;
@@ -102,7 +102,7 @@ async function run() {
                 await api(`/issues/${issue.number}/comments`, {
                     method: "POST",
                     body: JSON.stringify({
-                        body: "All caught up with `ru.json` ✅",
+                        body: `All caught up with \`${CANONICAL_LOCALE}.json\` ✅`,
                     }),
                 });
                 await api(`/issues/${issue.number}`, {
@@ -171,7 +171,7 @@ async function run() {
         await api(`/issues/${issue.number}/comments`, {
             method: "POST",
             body: JSON.stringify({
-                body: `\`ru.json\` changed - now ${missing.length} key${missing.length === 1 ? "" : "s"} missing.${mentions ? ` cc ${mentions}` : ""}`,
+                body: `\`${CANONICAL_LOCALE}.json\` changed - now ${missing.length} key${missing.length === 1 ? "" : "s"} missing.${mentions ? ` cc ${mentions}` : ""}`,
             }),
         });
         console.log(

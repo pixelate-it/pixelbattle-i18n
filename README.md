@@ -6,45 +6,46 @@ PixelBattle locales, consumed by the frontend as a git submodule at `i18n/`.
 
 ```
 i18n/
-  ru.json   # canonical - source of truth. Every key here must exist in every other locale.
-  en.json
+  en.json   # canonical - reference structure. Every key here must exist in every other locale.
+  ru.json
 ```
 
 Each file is a nested object. Top-level keys are domains (feature/component), and each domain holds flat strings. A string's key is its dot path, e.g. `about.section_title`.
 
 A locale's filename (`ru`, `en`, ...) is its ISO 639-1 code - that's also what `$meta.aliases` entries are, since they name locales the same way.
 
-The top-level `$meta` block holds locale metadata (BCP-47 tag, alias tags, the endonym), not translations - the completeness check ignores it entirely when comparing locales.
+**Canonical is a tooling concept, not the product's language.** `en.json` is the reference every other locale's key set is checked against (`yarn test`, the progress bar, `notify-maintainers.ts`) - English is what a translator contributing to an open project can most reliably read, regardless of which locale they're adding. That's independent of `SOURCE_LOCALE` in the frontend (`src/utils/i18n.ts`), which stays `"ru"`: the app is authored and defaults to Russian, and `detectLocale()`'s priority (`ru` first for Russian-sphere visitors, `en` as the fallback otherwise) doesn't change because of which file this repo treats as canonical.
 
-`$meta.aliases` in `ru.json` - ISO 639-1 codes whose speakers should default to `ru` instead of the `en` fallback (read by the frontend's `detectLocale()`, via a static/eager import, not the lazy per-locale load). Currently `be`, `uk`.
+The top-level `$meta` block holds locale metadata, not translations - the completeness check ignores it entirely when comparing locales.
 
-`$meta.language_name` in each file - the endonym, the language's own name in itself ("Русский", "English"), used by the language switcher in settings. Read like any other key via `t("$meta.language_name")` - `resolveKey` doesn't special-case `$meta`, only `flattenKeys`/the completeness check exclude it from being treated as a translation.
+## Locale metadata (`$meta`)
 
-`$meta.bcp47` in each file - the tag passed to `Intl` (`Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`) for that locale's date/number formatting, e.g. `ru-RU`, `en-US`. Read once the locale's catalog has loaded (the frontend's `dateLocale()` falls back to the bare locale code before that, or if a locale omits the field - itself a valid, if less region-specific, BCP-47 tag).
-
-`$meta.maintainers` in each file - GitHub handles of the people who keep that locale in sync with `ru.json`, e.g. `["mirdukkkkk"]`. Required on every locale (use `[]` if nobody's claimed it yet) - `yarn test` fails a locale that omits the key entirely, same as a missing translation. There's no separate maintainers registry: each locale's own file is the one place that says who speaks for it.
+- **`language_name`** (every file) - the endonym, the language's own name in itself ("English", "Русский"), used by the language switcher in settings. Read like any other key via `t("$meta.language_name")` - `resolveKey` doesn't special-case `$meta`, only `flattenKeys`/the completeness check exclude it from being treated as a translation.
+- **`bcp47`** (every file) - the tag passed to `Intl` (`Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`) for that locale's date/number formatting, e.g. `en-US`, `ru-RU`. Read once the locale's catalog has loaded (the frontend's `dateLocale()` falls back to the bare locale code before that, or if a locale omits the field - itself a valid, if less region-specific, BCP-47 tag).
+- **`aliases`** (`ru.json` only) - ISO 639-1 codes whose speakers should default to `ru` instead of the `en` fallback (read by the frontend's `detectLocale()`, via a static/eager import, not the lazy per-locale load). Currently `be`, `uk`.
+- **`maintainers`** (every file) - GitHub handles of the people who keep that locale in sync with the canonical one, e.g. `["mirdukkkkk"]`. Required on every locale (use `[]` if nobody's claimed it yet) - `yarn test` fails a locale that omits the key entirely, same as a missing translation. There's no separate maintainers registry: each locale's own file is the one place that says who speaks for it.
 
 ## Notifications
 
-`.github/workflows/notify.yml` runs `yarn notify` (`scripts/notify-maintainers.ts`) on every push to `main` that touches `i18n/*.json`. For each non-canonical locale still missing keys from `ru.json`, it opens (or updates) one tracking issue labeled `translation` + `lang:<code>`, checklisting the missing dot-paths, `@`-mentioning `$meta.maintainers` in the body, and assigning them to the issue (GitHub silently drops an assignee who isn't a repo collaborator - the `@`-mention still lands either way). The issue is reused across pushes (edited, not duplicated) and auto-closed once the locale catches up.
+`.github/workflows/notify.yml` runs `yarn notify` (`scripts/notify-maintainers.ts`) on every push to `main` that touches `i18n/*.json`. For each non-canonical locale still missing keys from `en.json`, it opens (or updates) one tracking issue labeled `translation` + `lang:<code>`, checklisting the missing dot-paths, `@`-mentioning `$meta.maintainers` in the body, and assigning them to the issue (GitHub silently drops an assignee who isn't a repo collaborator - the `@`-mention still lands either way). The issue is reused across pushes (edited, not duplicated) and auto-closed once the locale catches up.
 
 ## Translation progress
 
 <!-- progress:start -->
 
 ```
-Russian  ████████████████████████  100%  (525/525)  [ru]
-English  ████████████████████████  100%  (525/525)  [en]
+English  ████████████████████████  100%  (528/528)  [en]
+Russian  ████████████████████████  100%  (528/528)  [ru]
 ```
 
 <!-- progress:end -->
 
-Regenerated by `yarn readme` (reads the same dot-paths `yarn test` checks). Coverage is capped at `ru.json`'s key count, so a stale/extra key can't push a locale past 100% - `yarn test` catches those separately. Since the completeness check currently fails CI on anything short of 100%, every locale checked in today reads full - this becomes informative once a locale is added ahead of finishing it.
+Regenerated by `yarn readme` (reads the same dot-paths `yarn test` checks). Coverage is capped at `en.json`'s key count, so a stale/extra key can't push a locale past 100% - `yarn test` catches those separately. Since the completeness check currently fails CI on anything short of 100%, every locale checked in today reads full - this becomes informative once a locale is added ahead of finishing it.
 
 ## Adding a translation
 
-1. Add the key to `i18n/ru.json` inside the right domain (or start a new domain - a new top-level key).
-2. Add the same dot path to the other `i18n/*.json` files.
+1. Add the key to `i18n/en.json` inside the right domain (or start a new domain - a new top-level key).
+2. Add the same dot path to the other `i18n/*.json` files (`ru.json` included - being the app's default language doesn't exempt it from the same completeness check as any other locale).
 3. `yarn test` - confirms every locale has the same set of paths.
 
 ## Completeness check
@@ -55,4 +56,4 @@ yarn typecheck
 yarn test
 ```
 
-`yarn test` compares the dot paths of every locale against `ru.json` (canonical). It fails if a locale is missing a translation, or still carries a key that no longer exists in `ru.json` (stale/extra). Both run in CI on every push/PR (`.github/workflows/check.yml`), targeting the same Node version as the frontend (`.github/workflows/check.yml`'s `NODE_VERSION`, kept in sync with pixelbattle-frontend's `.nvmrc`).
+`yarn test` compares the dot paths of every locale against `en.json` (canonical). It fails if a locale is missing a translation, or still carries a key that no longer exists in `en.json` (stale/extra). Both run in CI on every push/PR (`.github/workflows/check.yml`), targeting the same Node version as the frontend (`.github/workflows/check.yml`'s `NODE_VERSION`, kept in sync with pixelbattle-frontend's `.nvmrc`).
