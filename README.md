@@ -8,6 +8,7 @@ PixelBattle locales, consumed by the frontend as a git submodule at `i18n/`.
 i18n/
   en.json   # canonical - reference structure. Every key here must exist in every other locale.
   ru.json
+  bz.json
 ```
 
 Each file is a nested object. Top-level keys are domains (feature/component), and each domain holds flat strings. A string's key is its dot path, e.g. `about.section_title`.
@@ -34,8 +35,9 @@ The top-level `$meta` block holds locale metadata, not translations - the comple
 <!-- progress:start -->
 
 ```
-English  ████████████████████████  100%  (528/528)  [en]
-Russian  ████████████████████████  100%  (528/528)  [ru]
+English                    ████████████████████████  100%  (528/528)  [en]
+Russian                    ████████████████████████  100%  (528/528)  [ru]
+Bobozhirskiy (PB dialect)  ████████████████████████  100%  (528/528)  [bz]
 ```
 
 <!-- progress:end -->
