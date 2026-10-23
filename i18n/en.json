@@ -278,6 +278,8 @@
         "this_tag_was_renamed_recently_s": "This tag was renamed recently (S)",
         "it_can_be_renamed_again_later": "It can be renamed again later",
         "it_can_be_renamed_again_time": "It can be renamed again {{time}}",
+        "the_transfer_window_is_closed_s": "The transfer window is closed (S)",
+        "you_already_played_for_another_tag_this_season": "You have already painted for another tag this season - that is the only one you can join",
         "tag_disbanded_s": "Tag disbanded (S)",
         "it_is_no_longer_active_but_it_stays_on_the_leaderb": "It is no longer active, but it stays on the leaderboard",
         "name_is_no_longer_active_but_it_stays_on_the_leade": "“{{name}}” is no longer active, but it stays on the leaderboard",
@@ -499,9 +501,22 @@
         "a_minute_forward": "A minute forward",
         "exact_time": "Exact time",
         "heatmap": "Heatmap",
+        "territories": "Territories",
         "grid": "Grid",
         "not_available_while_viewing_history": "Not available while viewing history",
         "bypass_cooldown": "Bypass placement cooldown"
+    },
+    "territories": {
+        "territories": "Territories",
+        "show_on_the_canvas": "Show on the canvas",
+        "rules": "A sector is {{size}}×{{size}} pixels. It is held by the tag with the most pixels that have stood for {{minutes}} min, and at least {{share}}% of its area",
+        "transfers_close_time": "Changing tags closes {{time}}",
+        "transfers_are_closed": "Changing tags is closed until the season ends",
+        "couldnt_load": "Couldn't load territories",
+        "nobody_holds_a_sector_yet": "Nobody holds a sector yet",
+        "sectors_and_score": "Sectors now · season score",
+        "sector_of": "Sector",
+        "sector_unclaimed": "Unclaimed sector"
     },
     "tags": {
         "nobody_has_claimed_any_pixels_yet": "Nobody has claimed any pixels yet",

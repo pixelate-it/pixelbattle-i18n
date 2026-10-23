@@ -279,6 +279,8 @@
         "this_tag_was_renamed_recently_s": "Недавно переименован тег (С)",
         "it_can_be_renamed_again_later": "Переименовать снова можно будет через некоторое время",
         "it_can_be_renamed_again_time": "Переименовать снова можно будет {{time}}",
+        "the_transfer_window_is_closed_s": "Трансферное окно закрыто (С)",
+        "you_already_played_for_another_tag_this_season": "В этом сезоне вы уже рисовали за другой тег — вступить можно только в него",
         "tag_disbanded_s": "Тег распущен (С)",
         "it_is_no_longer_active_but_it_stays_on_the_leaderb": "Он больше не активен, но остаётся в таблице лидеров",
         "name_is_no_longer_active_but_it_stays_on_the_leade": "«{{name}}» больше не активен, но остаётся в таблице лидеров",
@@ -500,9 +502,22 @@
         "a_minute_forward": "На минуту вперёд",
         "exact_time": "Точное время",
         "heatmap": "Тепловая карта",
+        "territories": "Территории",
         "grid": "Сетка",
         "not_available_while_viewing_history": "Недоступно при просмотре истории",
         "bypass_cooldown": "Обход тайминга постановки"
+    },
+    "territories": {
+        "territories": "Территории",
+        "show_on_the_canvas": "Показать на холсте",
+        "rules": "Сектор — {{size}}×{{size}} пикселей. Его держит тег, у которого больше всех пикселей, простоявших {{minutes}} мин, но не меньше {{share}}% площади",
+        "transfers_close_time": "Переходы между тегами закроются {{time}}",
+        "transfers_are_closed": "Переходы между тегами закрыты до конца сезона",
+        "couldnt_load": "Не удалось загрузить территории",
+        "nobody_holds_a_sector_yet": "Пока никто не удерживает ни одного сектора",
+        "sectors_and_score": "Секторов сейчас · очки за сезон",
+        "sector_of": "Сектор",
+        "sector_unclaimed": "Сектор ничей"
     },
     "tags": {
         "nobody_has_claimed_any_pixels_yet": "Пока никто не закрасил",
