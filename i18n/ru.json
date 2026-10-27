@@ -281,6 +281,7 @@
         "it_can_be_renamed_again_time": "Переименовать снова можно будет {{time}}",
         "the_transfer_window_is_closed_s": "Трансферное окно закрыто (С)",
         "you_already_played_for_another_tag_this_season": "В этом сезоне вы уже рисовали за другой тег — вступить можно только в него",
+        "this_player_already_played_for_another_tag": "Этот игрок в этом сезоне уже рисовал за другой тег и может вернуться только туда. Заявку можно отклонить",
         "tag_disbanded_s": "Тег распущен (С)",
         "it_is_no_longer_active_but_it_stays_on_the_leaderb": "Он больше не активен, но остаётся в таблице лидеров",
         "name_is_no_longer_active_but_it_stays_on_the_leade": "«{{name}}» больше не активен, но остаётся в таблице лидеров",

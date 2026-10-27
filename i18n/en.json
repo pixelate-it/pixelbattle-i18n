@@ -280,6 +280,7 @@
         "it_can_be_renamed_again_time": "It can be renamed again {{time}}",
         "the_transfer_window_is_closed_s": "The transfer window is closed (S)",
         "you_already_played_for_another_tag_this_season": "You have already painted for another tag this season - that is the only one you can join",
+        "this_player_already_played_for_another_tag": "This player has already painted for another tag this season and can only rejoin that one. You can reject the request",
         "tag_disbanded_s": "Tag disbanded (S)",
         "it_is_no_longer_active_but_it_stays_on_the_leaderb": "It is no longer active, but it stays on the leaderboard",
         "name_is_no_longer_active_but_it_stays_on_the_leade": "“{{name}}” is no longer active, but it stays on the leaderboard",
